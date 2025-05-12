@@ -1,4 +1,4 @@
-﻿using System;
+﻿ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -30,14 +30,14 @@ namespace CitiesManager.WebAPI.Controllers
 
         // GET: api/Cities/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<City>> GetCity(Guid? id)
+        public async Task<ActionResult<City>> GetCity(Guid? cityID)
         {
-            var city = await _context.Cities.FindAsync(id);
+            var city = await _context.Cities.FirstOrDefaultAsync(temp=>temp.CityID==cityID); //here the findasync is eqvivalent to writing Where method
 
             if (city == null)
             {
-                return NotFound();
-            }
+                return Problem(detail:"Invalid CityID", statusCode :400, title:"City Search");
+            }//preferrable then sending bad request 
 
             return city;
         }
