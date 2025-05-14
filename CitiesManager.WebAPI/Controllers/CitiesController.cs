@@ -10,9 +10,8 @@ using CitiesManager.WebAPI.Models;
 
 namespace CitiesManager.WebAPI.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class CitiesController : ControllerBase
+   
+    public class CitiesController : CustomControllerBase
     {
         private readonly ApplicationDbContext _context;
 
@@ -22,6 +21,10 @@ namespace CitiesManager.WebAPI.Controllers
         }
 
         // GET: api/Cities
+        /// <summary>
+        /// To get list of cityIds and CityName from "Cities" Table
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<City>>> GetCities()
         {
@@ -31,6 +34,11 @@ namespace CitiesManager.WebAPI.Controllers
         }
 
 
+        /// <summary>
+        /// To get city names based on CityID
+        /// </summary>
+        /// <param name="cityID"></param>
+        /// <returns></returns>
         // GET: api/Cities/5
         [HttpGet("{cityID}")]
         public async Task<ActionResult<City>> GetCity(Guid cityID)
@@ -47,6 +55,12 @@ namespace CitiesManager.WebAPI.Controllers
         }
 
 
+        /// <summary>
+        /// To Edit city from City table 
+        /// </summary>
+        /// <param name="cityID"></param>
+        /// <param name="city"></param>
+        /// <returns></returns>
         // PUT: api/Cities/5
         [HttpPut("{cityID}")]
         public async Task<IActionResult> PutCity(Guid cityID, [Bind(nameof(City.CityID), nameof(City.CityName))] City city)
@@ -83,7 +97,11 @@ namespace CitiesManager.WebAPI.Controllers
             return NoContent();
         }
 
-
+        /// <summary>
+        /// To insert new cities in table 
+        /// </summary>
+        /// <param name="city"></param>
+        /// <returns></returns>
         // POST: api/Cities
         [HttpPost]
         public async Task<ActionResult<City>> PostCity([Bind(nameof(City.CityID), nameof(City.CityName))] City city)
@@ -99,6 +117,11 @@ namespace CitiesManager.WebAPI.Controllers
         }
 
 
+        /// <summary>
+        /// To delete city based on their city names
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         // DELETE: api/Cities/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCity(Guid id)

@@ -1,5 +1,6 @@
 using CitiesManager.WebAPI.DatabaseContext;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,7 +15,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options=>
 
 //Swagger
 builder.Services.AddEndpointsApiExplorer();//Generates description for all end points
-builder.Services.AddSwaggerGen();//Generates OPenApi Specifications
+builder.Services.AddSwaggerGen(); //Generates OPenApi Specifications
 
 var app = builder.Build();
 
@@ -23,7 +24,7 @@ var app = builder.Build();
 app.UseHsts();
 app.UseHttpsRedirection();
 
-app.UseSwagger(); //Creates end point for swagger.json files 
+app.UseSwagger(); //Creates endpoint for swagger.json files 
 app.UseSwaggerUI();//creates swagger UI for testing all web API endpoints/Action methods
 
 app.UseAuthorization();
