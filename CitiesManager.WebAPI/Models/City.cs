@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Xml.Serialization;
 
 namespace CitiesManager.WebAPI.Models
 {
@@ -8,6 +9,6 @@ namespace CitiesManager.WebAPI.Models
         public Guid? CityID { get; set; }
 
         [Required(ErrorMessage="City name can't be blank")]
-        public string CityName { get; set; }
+        public string? CityName { get; set; }
     }
 }

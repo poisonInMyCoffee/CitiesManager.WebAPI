@@ -7,11 +7,15 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using CitiesManager.WebAPI.DatabaseContext;
 using CitiesManager.WebAPI.Models;
+using Asp.Versioning;
 
-namespace CitiesManager.WebAPI.Controllers
+namespace CitiesManager.WebAPI.Controllers.v1
 {
-   
-    public class CitiesController : CustomControllerBase
+    [ApiVersion("1.0")]
+    [ApiExplorerSettings(GroupName = "v1")]
+    [Route("api/v{version:apiVersion}/[controller]")]
+    [ApiController]
+    public class CitiesController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
 
@@ -22,10 +26,11 @@ namespace CitiesManager.WebAPI.Controllers
 
         // GET: api/Cities
         /// <summary>
-        /// To get list of cityIds and CityName from "Cities" Table
+        /// To get list of cities (including city ID and city name) from 'cities' table
         /// </summary>
         /// <returns></returns>
         [HttpGet]
+        //[Produces("application/xml")]
         public async Task<ActionResult<IEnumerable<City>>> GetCities()
         {
             var cities = await _context.Cities
@@ -34,11 +39,6 @@ namespace CitiesManager.WebAPI.Controllers
         }
 
 
-        /// <summary>
-        /// To get city names based on CityID
-        /// </summary>
-        /// <param name="cityID"></param>
-        /// <returns></returns>
         // GET: api/Cities/5
         [HttpGet("{cityID}")]
         public async Task<ActionResult<City>> GetCity(Guid cityID)
@@ -47,20 +47,14 @@ namespace CitiesManager.WebAPI.Controllers
 
             if (city == null)
             {
-                return Problem(detail: "Invalid CityID",statusCode:400, title: "City Search");
-                //return NotFound();
+                return Problem(detail: "Invalid CityID", statusCode: 400, title: "City Search");
+                //return BadRequest();
             }
 
             return city;
         }
 
 
-        /// <summary>
-        /// To Edit city from City table 
-        /// </summary>
-        /// <param name="cityID"></param>
-        /// <param name="city"></param>
-        /// <returns></returns>
         // PUT: api/Cities/5
         [HttpPut("{cityID}")]
         public async Task<IActionResult> PutCity(Guid cityID, [Bind(nameof(City.CityID), nameof(City.CityName))] City city)
@@ -97,15 +91,16 @@ namespace CitiesManager.WebAPI.Controllers
             return NoContent();
         }
 
-        /// <summary>
-        /// To insert new cities in table 
-        /// </summary>
-        /// <param name="city"></param>
-        /// <returns></returns>
+
         // POST: api/Cities
         [HttpPost]
         public async Task<ActionResult<City>> PostCity([Bind(nameof(City.CityID), nameof(City.CityName))] City city)
         {
+            //if (ModelState.IsValid == false)
+            //{
+            // return ValidationProblem(ModelState);
+            //}
+
             if (_context.Cities == null)
             {
                 return Problem("Entity set 'ApplicationDbContext.Cities'  is null.");
@@ -113,15 +108,10 @@ namespace CitiesManager.WebAPI.Controllers
             _context.Cities.Add(city);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetCity", new { cityID = city.CityID }, city); //api/Cities/67d28f3d-43eb-49c7-916c-5b39172955e5
+            return CreatedAtAction("GetCity", new { cityID = city.CityID }, city); //Eg: Location: api/Cities/67d28f3d-43eb-49c7-916c-5b39172955e5
         }
 
 
-        /// <summary>
-        /// To delete city based on their city names
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
         // DELETE: api/Cities/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCity(Guid id)
