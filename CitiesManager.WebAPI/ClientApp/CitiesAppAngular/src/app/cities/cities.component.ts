@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { City } from "../models/city";
+import { City } from '../models/city';
 import { CitiesService } from '../services/cities.service';
 
 @Component({
@@ -11,9 +11,9 @@ export class CitiesComponent {
   cities: City[] = [];
 
   constructor(private citiesService: CitiesService) {
-
   }
-  ndOnInIt() {
-    this.citiesService.getCities();
+
+  ngOnInit() {
+    this.cities = this.citiesService.getCities();
   }
 }
