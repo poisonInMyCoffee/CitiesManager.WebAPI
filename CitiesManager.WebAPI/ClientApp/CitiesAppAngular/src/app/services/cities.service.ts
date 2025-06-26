@@ -14,4 +14,7 @@ export class CitiesService {
       new City("104","Lucknow"),
     ];
   }
+  public getCities(): City[] {
+    return this.cities;
+  }
 }
