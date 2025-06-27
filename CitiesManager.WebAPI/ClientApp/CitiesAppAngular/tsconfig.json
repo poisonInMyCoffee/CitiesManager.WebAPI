@@ -22,8 +22,38 @@
     "strict": true,
     "target": "ES2020",
     "useDefineForClassFields": false
-  },
-  "include": [
-    "src/**/*"
-  ]
+  }
 }
+
+
+
+
+//{
+//  "compileOnSave": false,
+//  "compilerOptions": {
+//    "baseUrl": "./",
+//    "declaration": false,
+//    "downlevelIteration": true,
+//    "experimentalDecorators": true,
+//    "forceConsistentCasingInFileNames": true,
+//    "importHelpers": true,
+//    "lib": [
+//      "ES2020",
+//      "DOM"
+//    ],
+//    "module": "ES2020",
+//    "moduleResolution": "node",
+//    "noFallthroughCasesInSwitch": true,
+//    "noImplicitOverride": true,
+//    "noImplicitReturns": true,
+//    "noPropertyAccessFromIndexSignature": true,
+//    "outDir": "./dist/out-tsc",
+//    "sourceMap": true,
+//    "strict": true,
+//    "target": "ES2020",
+//    "useDefineForClassFields": false
+//  },
+//  "include": [
+//    "src/**/*"
+//  ]
+//}

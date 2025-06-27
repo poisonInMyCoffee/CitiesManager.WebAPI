@@ -12,6 +12,6 @@ export class CitiesService {
 
 
   public getCities(): City[] {
-    return this.cities;
+    return this.httpClient.get("https://localhost:7221/api/v1/cities");
   }
 }
