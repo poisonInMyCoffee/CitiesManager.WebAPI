@@ -12,7 +12,7 @@ export class CitiesComponent {
 
   constructor(private citiesService: CitiesService) {
   }
-
+  //seeding data from asp.net to angular
   ngOnInit() {
     this.cities = this.citiesService.getCities().subscribe(
       (response: City[]) => {
