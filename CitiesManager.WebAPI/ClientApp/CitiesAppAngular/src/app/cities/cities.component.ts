@@ -14,6 +14,13 @@ export class CitiesComponent {
   }
 
   ngOnInit() {
-    this.cities = this.citiesService.getCities();
+    this.cities = this.citiesService.getCities().subscribe(
+      (response: City[]) => {
+        this.cities = response;
+      },
+      (error:any) => { },
+      () => { }
+
+    );
   }
 }
